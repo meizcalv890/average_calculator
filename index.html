@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e6" />
+    <title>NEO / Average Calculator v2.1</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <a href="#" class="brand" aria-label="Average Calculator">
+          <div class="brand-mark">N.</div>
+          <div class="brand-copy">
+            <strong>NEO / AVG</strong>
+            <span>CALCULATOR SYSTEM</span>
+          </div>
+        </a>
+
+        <div class="sidebar-section">
+          <span class="section-label">WORKSPACE / 01</span>
+
+          <nav class="navigation">
+            <button class="nav-link active" data-page="dashboard">
+              <span class="nav-index">01</span>
+              <span>Overview</span>
+              <span class="nav-arrow">↗</span>
+            </button>
+
+            <button class="nav-link" data-page="calculator">
+              <span class="nav-index">02</span>
+              <span>Calculator</span>
+              <span class="nav-arrow">↗</span>
+            </button>
+
+            <button class="nav-link" data-page="history">
+              <span class="nav-index">03</span>
+              <span>Records</span>
+              <span class="nav-arrow">↗</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="sidebar-note">
+            <span class="status-mark"></span>
+            <div>
+              <strong>SYSTEM ONLINE</strong>
+              <small>Local browser storage</small>
+            </div>
+          </div>
+
+          <div class="sidebar-version">
+            <span>NEO / AVG</span>
+            <strong>V.2.1</strong>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <span class="topbar-kicker">PERSONAL DATA TOOL / 2026</span>
+            <h2 id="pageTitle">Overview<span class="title-period">.</span></h2>
+          </div>
+
+          <div class="topbar-right">
+            <span class="storage-indicator">
+              <span></span>
+              LOCAL STORAGE
+            </span>
+            <div class="topbar-version">2.1</div>
+          </div>
+        </header>
+
+        <!-- ================= DASHBOARD ================= -->
+        <section class="page active" id="dashboardPage">
+          <div class="page-intro">
+            <div>
+              <span class="section-label">DASHBOARD / 01</span>
+              <h3>Numbers tell<br />the <span>story.</span></h3>
+              <p>Ringkasan seluruh perhitungan nilai yang sudah kamu simpan.</p>
+            </div>
+
+            <button class="button primary" data-go="calculator">
+              <span>＋</span> NEW CALCULATION
+            </button>
+          </div>
+
+          <!-- MAIN STATISTIC -->
+          <div class="hero-stat">
+            <div class="hero-stat-main">
+              <div class="stat-heading">
+                <span>01 / OVERALL AVERAGE</span>
+                <span class="stat-symbol">↗</span>
+              </div>
+
+              <h3 id="overallAverage">0</h3>
+              <p>Rata-rata dari seluruh nilai dalam riwayat tersimpan.</p>
+            </div>
+
+            <div class="hero-stat-side">
+              <div class="side-stat">
+                <span>02 / SAVED RECORDS</span>
+                <strong id="historyRecordCount">0</strong>
+                <small>Total perhitungan tersimpan</small>
+              </div>
+
+              <div class="side-stat yellow-block">
+                <span>03 / TOTAL SCORES</span>
+                <strong id="totalScores">0</strong>
+                <small>Jumlah seluruh data nilai</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECONDARY STATS -->
+          <div class="secondary-stats">
+            <div class="mini-stat">
+              <span class="mini-index">04</span>
+              <div>
+                <small>HIGHEST SCORE</small>
+                <strong id="highestScore">-</strong>
+              </div>
+              <span class="mini-icon">↑</span>
+            </div>
+
+            <div class="mini-stat">
+              <span class="mini-index">05</span>
+              <div>
+                <small>LOWEST SCORE</small>
+                <strong id="lowestScoreText">-</strong>
+              </div>
+              <span class="mini-icon">↓</span>
+            </div>
+          </div>
+
+          <!-- CHARTS -->
+          <div class="section-heading">
+            <div>
+              <span class="section-label">DATA VISUALIZATION / 02</span>
+              <h3>Performance analysis<span>.</span></h3>
+            </div>
+            <span class="section-number">FIG. 01—02</span>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div>
+                  <span class="panel-index">FIG. 01</span>
+                  <h3>Average comparison</h3>
+                  <p>Perbandingan rata-rata setiap riwayat.</p>
+                </div>
+                <span class="panel-symbol">▥</span>
+              </div>
+
+              <div id="averageChart" class="chart-area">
+                <div class="empty-state">Belum ada data untuk ditampilkan.</div>
+              </div>
+            </article>
+
+            <article class="panel distribution-panel">
+              <div class="panel-heading">
+                <div>
+                  <span class="panel-index">FIG. 02</span>
+                  <h3>Score distribution</h3>
+                  <p>Distribusi nilai berdasarkan rentang.</p>
+                </div>
+                <span class="panel-symbol">◫</span>
+              </div>
+
+              <div id="distributionChart" class="distribution-list">
+                <div class="empty-state">Belum ada data.</div>
+              </div>
+            </article>
+          </div>
+
+          <!-- RECENT RECORDS -->
+          <div class="section-heading recent-heading">
+            <div>
+              <span class="section-label">DATABASE / 03</span>
+              <h3>Recent records<span>.</span></h3>
+            </div>
+
+            <button class="text-button" data-go="history">
+              VIEW ALL RECORDS →
+            </button>
+          </div>
+
+          <article class="panel recent-panel">
+            <div id="recentHistories" class="recent-list">
+              <div class="empty-state">Belum ada riwayat tersimpan.</div>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================= CALCULATOR ================= -->
+        <section class="page" id="calculatorPage">
+          <div class="page-intro compact-intro">
+            <div>
+              <span class="section-label">CALCULATOR / 02</span>
+              <h3>Calculate<br />your <span>numbers.</span></h3>
+              <p>
+                Masukkan nilai dan dapatkan hasil perhitungan secara langsung.
+              </p>
+            </div>
+
+            <span id="draftStatus" class="draft-indicator">
+              <span></span> AUTO DRAFT
+            </span>
+          </div>
+
+          <div class="calculator-layout">
+            <article class="panel calculator-panel">
+              <div class="field-group">
+                <label for="historyName">
+                  <span>01</span> CALCULATION NAME
+                </label>
+                <input
+                  type="text"
+                  id="historyName"
+                  placeholder="Contoh: Matematika semester 1"
+                />
+              </div>
+
+              <div class="form-divider">
+                <span>INPUT DATA</span>
+                <span>02 / SCORE ENTRY</span>
+              </div>
+
+              <div class="panel-heading">
+                <div>
+                  <h3>Score list</h3>
+                  <p>Masukkan nilai antara 0 sampai 100.</p>
+                </div>
+
+                <span class="count-badge">
+                  <span id="scoreCount">0</span> ENTRIES
+                </span>
+              </div>
+
+              <div class="score-entry">
+                <input
+                  type="number"
+                  id="scoreInput"
+                  min="0"
+                  max="100"
+                  step="any"
+                  placeholder="00.00"
+                />
+
+                <button class="button primary" id="addScoreBtn">
+                  ADD VALUE <span>＋</span>
+                </button>
+              </div>
+
+              <p id="inputMessage" class="message"></p>
+
+              <div id="scoreList" class="score-list">
+                <div class="empty-state">
+                  Belum ada nilai. Tambahkan nilai pertama.
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="button secondary" id="clearScoresBtn">
+                  CLEAR VALUES
+                </button>
+
+                <button class="button secondary" id="newCalculationBtn">
+                  NEW SESSION ↗
+                </button>
+              </div>
+            </article>
+
+            <aside class="result-panel">
+              <div class="result-top">
+                <span>LIVE CALCULATION / 03</span>
+                <span class="result-mark">AVG.</span>
+              </div>
+
+              <p class="result-label">YOUR AVERAGE</p>
+              <div class="average-display" id="averageResult">0</div>
+              <p class="result-caption" id="resultCaption">
+                Tambahkan nilai untuk memulai.
+              </p>
+
+              <div class="result-divider"></div>
+
+              <div class="result-row">
+                <span>NUMBER OF SCORES</span>
+                <strong id="resultCount">0</strong>
+              </div>
+
+              <div class="result-row">
+                <span>TOTAL VALUE</span>
+                <strong id="resultTotal">0</strong>
+              </div>
+
+              <div class="result-row">
+                <span>HIGHEST</span>
+                <strong id="resultHighest">-</strong>
+              </div>
+
+              <div class="result-row">
+                <span>LOWEST</span>
+                <strong id="resultLowest">-</strong>
+              </div>
+
+              <button class="button result-button" id="saveCalculationBtn">
+                SAVE CALCULATION <span>↗</span>
+              </button>
+
+              <p id="saveStatus" class="message center"></p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ================= HISTORY ================= -->
+        <section class="page" id="historyPage">
+          <div class="page-intro compact-intro">
+            <div>
+              <span class="section-label">DATABASE / 03</span>
+              <h3>Stored <span>records.</span></h3>
+              <p>Semua perhitungan yang pernah kamu simpan.</p>
+            </div>
+
+            <div class="record-count-box">
+              <span>RECORD ARCHIVE</span>
+              <strong id="totalHistories">0</strong>
+            </div>
+          </div>
+
+          <article class="panel history-panel">
+            <div class="history-toolbar">
+              <div class="search-wrapper">
+                <span>⌕</span>
+                <input
+                  type="search"
+                  id="searchHistory"
+                  placeholder="Search records..."
+                />
+              </div>
+
+              <select id="sortHistory">
+                <option value="newest">LATEST FIRST</option>
+                <option value="oldest">OLDEST FIRST</option>
+                <option value="name">NAME A-Z</option>
+                <option value="average-high">AVERAGE: HIGH TO LOW</option>
+                <option value="average-low">AVERAGE: LOW TO HIGH</option>
+              </select>
+            </div>
+
+            <div class="table-heading">
+              <span>RECORD NAME</span>
+              <span>AVERAGE / ACTIONS</span>
+            </div>
+
+            <div id="historyList" class="history-list">
+              <div class="empty-state">Belum ada riwayat tersimpan.</div>
+            </div>
+          </article>
+
+          <!-- DATA MANAGEMENT -->
+          <div class="section-heading">
+            <div>
+              <span class="section-label">SYSTEM TOOLS / 04</span>
+              <h3>Data management<span>.</span></h3>
+            </div>
+          </div>
+
+          <article class="panel management-panel">
+            <div class="management-description">
+              <span class="panel-index">BACKUP / RESTORE</span>
+              <h3>Keep your data safe.</h3>
+              <p>
+                Ekspor atau pulihkan data perhitungan menggunakan file lokal.
+              </p>
+            </div>
+
+            <div class="management-actions">
+              <button class="button secondary" id="exportCsvBtn">
+                ↓ EXPORT CSV
+              </button>
+
+              <button class="button secondary" id="backupBtn">
+                + BACKUP JSON
+              </button>
+
+              <button class="button secondary" id="restoreBtn">
+                ↑ RESTORE JSON
+              </button>
+
+              <input
+                type="file"
+                id="restoreInput"
+                accept=".json,application/json"
+                hidden
+              />
+            </div>
+
+            <p id="managementStatus" class="message"></p>
+          </article>
+
+          <!-- HISTORY DETAIL -->
+          <article class="panel detail-panel" id="historyDetail" hidden>
+            <div class="panel-heading">
+              <div>
+                <span class="panel-index">RECORD DETAIL</span>
+                <h3 id="detailTitle">Detail perhitungan</h3>
+                <p id="detailDate"></p>
+              </div>
+
+              <button class="button secondary" id="closeDetailBtn">
+                CLOSE ×
+              </button>
+            </div>
+
+            <div class="detail-stats" id="detailStats"></div>
+            <div id="detailScores" class="detail-scores"></div>
+          </article>
+        </section>
+
+        <footer class="footer">
+          <div>
+            <strong>NEO / AVG.</strong>
+            <span>PERSONAL CALCULATION TOOL</span>
+          </div>
+          <span>BUILT FOR NUMBERS. © 2026</span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
