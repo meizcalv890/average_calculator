@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f4f0e6" />
-    <title>NEO / Average Calculator v2.1</title>
+    <title>NEO / Average Calculator v2.2</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -40,6 +40,12 @@
               <span>Records</span>
               <span class="nav-arrow">↗</span>
             </button>
+
+            <button class="nav-link" data-page="excel">
+              <span class="nav-index">04</span>
+              <span>Excel Processor</span>
+              <span class="nav-arrow">↗</span>
+            </button>
           </nav>
         </div>
 
@@ -54,7 +60,7 @@
 
           <div class="sidebar-version">
             <span>NEO / AVG</span>
-            <strong>V.2.1</strong>
+            <strong>V.2.2</strong>
           </div>
         </div>
       </aside>
@@ -72,7 +78,7 @@
               <span></span>
               LOCAL STORAGE
             </span>
-            <div class="topbar-version">2.1</div>
+            <div class="topbar-version">2.2</div>
           </div>
         </header>
 
@@ -188,6 +194,12 @@
 
             <button class="text-button" data-go="history">
               VIEW ALL RECORDS →
+            </button>
+
+            <button class="nav-link" data-page="excel">
+              <span class="nav-index">04</span>
+              <span>Excel Processor</span>
+              <span class="nav-arrow">↗</span>
             </button>
           </div>
 
@@ -425,6 +437,234 @@
           </article>
         </section>
 
+        <!-- ================= EXCEL PROCESSOR ================= -->
+        <section class="page" id="excelPage">
+          <div class="page-intro compact-intro">
+            <div>
+              <span class="section-label">DATA PROCESSOR / 04</span>
+              <h3>Excel data.<br />Processed <span>better.</span></h3>
+              <p>
+                Import spreadsheet, hitung rata-rata, dan ekspor kembali
+                hasilnya ke file Excel.
+              </p>
+            </div>
+
+            <span class="draft-indicator">
+              <span></span> LOCAL PROCESSING
+            </span>
+          </div>
+
+          <!-- FILE UPLOAD -->
+          <article class="panel excel-upload-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-index">01 / IMPORT WORKBOOK</span>
+                <h3>Choose your spreadsheet</h3>
+                <p>Format yang didukung: XLSX dan XLS.</p>
+              </div>
+              <span class="panel-symbol">▤</span>
+            </div>
+
+            <label class="excel-dropzone" for="excelFileInput">
+              <span class="excel-upload-icon">↑</span>
+              <strong>SELECT EXCEL FILE</strong>
+              <span>Choose a file from your device</span>
+              <small>Supported formats: .xlsx, .xls</small>
+            </label>
+
+            <input
+              type="file"
+              id="excelFileInput"
+              accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+              hidden
+            />
+
+            <div id="excelFileInfo" class="excel-file-info" hidden>
+              <div>
+                <strong id="excelFileName">No file selected</strong>
+                <small id="excelFileSize"></small>
+              </div>
+              <button
+                type="button"
+                class="button secondary"
+                id="removeExcelBtn"
+              >
+                REMOVE ×
+              </button>
+            </div>
+
+            <p id="excelImportStatus" class="message" aria-live="polite"></p>
+          </article>
+
+          <!-- WORKBOOK CONFIGURATION -->
+          <article class="panel excel-settings-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-index">02 / WORKBOOK SETTINGS</span>
+                <h3>Configure your data</h3>
+                <p>
+                  Tentukan worksheet dan struktur tabel yang ingin diproses.
+                </p>
+              </div>
+            </div>
+
+            <div class="excel-settings-grid">
+              <div class="field-group">
+                <label for="excelSheetSelect">
+                  <span>01</span> WORKSHEET
+                </label>
+                <select id="excelSheetSelect" disabled>
+                  <option value="">Import a file first</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="excelHeaderRow"> <span>02</span> HEADER ROW </label>
+                <input
+                  type="number"
+                  id="excelHeaderRow"
+                  min="1"
+                  value="1"
+                  disabled
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="excelStartRow">
+                  <span>03</span> FIRST DATA ROW
+                </label>
+                <input
+                  type="number"
+                  id="excelStartRow"
+                  min="1"
+                  value="2"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div class="form-divider">
+              <span>CALCULATION MODE</span>
+              <span>03 / PROCESSING</span>
+            </div>
+
+            <div class="excel-mode-grid">
+              <label class="excel-mode-option">
+                <input type="checkbox" id="excelRowMode" checked disabled />
+                <span>
+                  <strong>ROW AVERAGE</strong>
+                  <small>Hitung rata-rata setiap baris data.</small>
+                </span>
+              </label>
+
+              <label class="excel-mode-option">
+                <input type="checkbox" id="excelColumnMode" checked disabled />
+                <span>
+                  <strong>COLUMN AVERAGE</strong>
+                  <small>Hitung rata-rata setiap kolom nilai.</small>
+                </span>
+              </label>
+            </div>
+
+            <div class="field-group excel-column-field">
+              <label for="excelNumericColumns">
+                <span>04</span> NUMERIC COLUMNS
+              </label>
+              <select id="excelNumericColumns" multiple disabled></select>
+              <small class="field-hint">
+                Pilih satu atau beberapa kolom angka yang ingin dihitung.
+                Gunakan Ctrl atau Shift untuk memilih beberapa kolom.
+              </small>
+            </div>
+
+            <button
+              type="button"
+              class="button primary excel-process-button"
+              id="processExcelBtn"
+              disabled
+            >
+              PROCESS SPREADSHEET <span>↗</span>
+            </button>
+
+            <p id="excelProcessStatus" class="message" aria-live="polite"></p>
+          </article>
+
+          <!-- PREVIEW -->
+          <article class="panel excel-preview-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-index">04 / DATA PREVIEW</span>
+                <h3>Spreadsheet preview</h3>
+                <p>Periksa data sebelum mengekspor hasilnya.</p>
+              </div>
+              <span id="excelPreviewCount" class="count-badge"> 0 ROWS </span>
+            </div>
+
+            <div class="excel-table-wrapper">
+              <table class="excel-preview-table">
+                <thead id="excelPreviewHead">
+                  <tr>
+                    <th>IMPORT DATA TO BEGIN</th>
+                  </tr>
+                </thead>
+                <tbody id="excelPreviewBody">
+                  <tr>
+                    <td class="empty-state">
+                      Belum ada spreadsheet yang diimpor.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- SUMMARY AND EXPORT -->
+          <article class="panel excel-result-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-index">05 / PROCESSING RESULT</span>
+                <h3>Calculation summary</h3>
+                <p>Ringkasan hasil pengolahan spreadsheet.</p>
+              </div>
+              <span class="panel-symbol">AVG.</span>
+            </div>
+
+            <div class="excel-summary-grid">
+              <div class="excel-summary-item">
+                <small>PROCESSED ROWS</small>
+                <strong id="excelProcessedRows">0</strong>
+              </div>
+
+              <div class="excel-summary-item">
+                <small>VALID NUMBERS</small>
+                <strong id="excelValidNumbers">0</strong>
+              </div>
+
+              <div class="excel-summary-item">
+                <small>SKIPPED CELLS</small>
+                <strong id="excelSkippedCells">0</strong>
+              </div>
+            </div>
+
+            <div id="excelResultPreview" class="excel-result-preview">
+              <div class="empty-state">
+                Hasil perhitungan akan muncul di sini.
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="button primary excel-export-button"
+              id="exportExcelBtn"
+              disabled
+            >
+              DOWNLOAD PROCESSED EXCEL <span>↓</span>
+            </button>
+
+            <p id="excelExportStatus" class="message" aria-live="polite"></p>
+          </article>
+        </section>
+
         <footer class="footer">
           <div>
             <strong>NEO / AVG.</strong>
@@ -435,6 +675,11 @@
       </main>
     </div>
 
+    <!-- SheetJS: Excel reader and writer -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+    <!-- Average Calculator v2.2 -->
+    <script src="excel-processor.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

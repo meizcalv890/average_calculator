@@ -235,6 +235,7 @@ function openPage(pageName) {
     dashboard: "Dashboard",
     calculator: "Kalkulator",
     history: "Riwayat",
+    excel: "Excel Processor",
   };
 
   pageTitle.textContent = titles[pageName] || "Dashboard";
