@@ -221,6 +221,59 @@ function saveDraft() {
 // ==========================================
 // NAVIGATION
 // ==========================================
+// ==========================================
+// MOBILE SIDEBAR
+// ==========================================
+
+const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+const appSidebar = document.getElementById("appSidebar");
+
+function openMobileSidebar() {
+  if (!appSidebar || !sidebarOverlay || !mobileMenuToggle) return;
+
+  appSidebar.classList.add("is-open");
+  sidebarOverlay.classList.add("active");
+  document.body.classList.add("sidebar-open");
+
+  mobileMenuToggle.setAttribute("aria-expanded", "true");
+  mobileMenuToggle.setAttribute("aria-label", "Tutup menu navigasi");
+}
+
+function closeMobileSidebar() {
+  if (!appSidebar || !sidebarOverlay || !mobileMenuToggle) return;
+
+  appSidebar.classList.remove("is-open");
+  sidebarOverlay.classList.remove("active");
+  document.body.classList.remove("sidebar-open");
+
+  mobileMenuToggle.setAttribute("aria-expanded", "false");
+  mobileMenuToggle.setAttribute("aria-label", "Buka menu navigasi");
+}
+
+mobileMenuToggle?.addEventListener("click", () => {
+  const isOpen = appSidebar?.classList.contains("is-open");
+
+  if (isOpen) {
+    closeMobileSidebar();
+  } else {
+    openMobileSidebar();
+  }
+});
+
+sidebarOverlay?.addEventListener("click", closeMobileSidebar);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeMobileSidebar();
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 800) {
+    closeMobileSidebar();
+  }
+});
 
 function openPage(pageName) {
   pages.forEach((page) => {
@@ -261,12 +314,14 @@ function openPage(pageName) {
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     openPage(link.dataset.page);
+    closeMobileSidebar();
   });
 });
 
 document.querySelectorAll("[data-go]").forEach((button) => {
   button.addEventListener("click", () => {
     openPage(button.dataset.go);
+    closeMobileSidebar();
   });
 });
 

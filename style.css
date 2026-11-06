@@ -2018,3 +2018,214 @@ select:focus {
     padding: 5px 12px;
   }
 }
+
+/* ==========================================
+   MOBILE SIDEBAR DRAWER
+========================================== */
+
+/* Default: tombol dan overlay tidak ditampilkan di desktop */
+.mobile-menu-toggle,
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  /* Tombol hamburger */
+  .mobile-menu-toggle {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 17px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-menu-toggle:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  /* Sidebar menjadi drawer di luar layar */
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1001;
+    width: min(290px, 84vw);
+    height: 100dvh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 25px 18px 18px;
+    border-right: 2px solid var(--paper);
+    border-bottom: 0;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    overscroll-behavior: contain;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  /* Pulihkan tata letak sidebar desktop di dalam drawer */
+  .brand {
+    gap: 12px;
+    padding: 0 2px 28px;
+    border-bottom: 1px solid #4b4943;
+  }
+
+  .brand-mark {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    font-size: 24px;
+  }
+
+  .brand-copy strong {
+    font-size: 15px;
+  }
+
+  .sidebar-section {
+    padding-top: 28px;
+  }
+
+  .sidebar .section-label {
+    display: block;
+  }
+
+  .navigation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 17px;
+  }
+
+  .nav-link {
+    min-height: 46px;
+    width: 100%;
+    flex: initial;
+    display: grid;
+    grid-template-columns: 25px minmax(0, 1fr) 18px;
+    justify-content: initial;
+    gap: 8px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .nav-index,
+  .nav-arrow {
+    display: block;
+  }
+
+  .sidebar-bottom {
+    display: block;
+    margin-top: auto;
+    padding-top: 25px;
+  }
+
+  /* Overlay di belakang drawer */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    background: rgb(23 23 23 / 52%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.sidebar-open {
+    overflow: hidden;
+  }
+
+  /* Topbar: tombol hamburger tetap di luar sidebar */
+  .topbar {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .topbar-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .topbar-right {
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  .topbar h2 {
+    overflow-wrap: anywhere;
+  }
+
+  /* Panel Excel di dashboard */
+  .excel-shortcut-panel {
+    margin-bottom: 0;
+  }
+
+  .excel-shortcut-panel .management-description {
+    max-width: 420px;
+  }
+
+  .excel-shortcut-panel .management-actions {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .mobile-menu-toggle {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .topbar {
+    gap: 9px;
+  }
+
+  .topbar-right {
+    gap: 6px;
+  }
+
+  .excel-shortcut-panel .management-actions,
+  .excel-shortcut-panel .management-actions .button {
+    width: 100%;
+  }
+
+  .excel-shortcut-panel .management-actions .button {
+    flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar-overlay,
+  .mobile-menu-toggle span {
+    transition: none;
+  }
+}

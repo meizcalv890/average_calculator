@@ -9,8 +9,11 @@
   </head>
   <body>
     <div class="app-shell">
+      <!-- MOBILE SIDEBAR OVERLAY -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
       <!-- SIDEBAR -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="appSidebar">
         <a href="#" class="brand" aria-label="Average Calculator">
           <div class="brand-mark">N.</div>
           <div class="brand-copy">
@@ -68,6 +71,19 @@
       <!-- MAIN CONTENT -->
       <main class="main-content">
         <header class="topbar">
+          <button
+            type="button"
+            class="mobile-menu-toggle"
+            id="mobileMenuToggle"
+            aria-label="Buka menu navigasi"
+            aria-controls="appSidebar"
+            aria-expanded="false"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
           <div class="topbar-left">
             <span class="topbar-kicker">PERSONAL DATA TOOL / 2026</span>
             <h2 id="pageTitle">Overview<span class="title-period">.</span></h2>
@@ -195,17 +211,37 @@
             <button class="text-button" data-go="history">
               VIEW ALL RECORDS →
             </button>
-
-            <button class="nav-link" data-page="excel">
-              <span class="nav-index">04</span>
-              <span>Excel Processor</span>
-              <span class="nav-arrow">↗</span>
-            </button>
           </div>
 
           <article class="panel recent-panel">
             <div id="recentHistories" class="recent-list">
               <div class="empty-state">Belum ada riwayat tersimpan.</div>
+            </div>
+          </article>
+
+          <!-- EXCEL PROCESSOR SHORTCUT -->
+          <div class="section-heading excel-shortcut-heading">
+            <div>
+              <span class="section-label">DATA PROCESSOR / 04</span>
+              <h3>Excel Processor<span>.</span></h3>
+            </div>
+            <span class="section-number">WORKBOOK TOOLS</span>
+          </div>
+
+          <article class="panel management-panel excel-shortcut-panel">
+            <div class="management-description">
+              <span class="panel-index">SPREADSHEET / PROCESSING</span>
+              <h3>Work with your Excel data.</h3>
+              <p>
+                Impor spreadsheet, hitung rata-rata baris dan kolom, periksa
+                hasilnya, lalu unduh kembali file yang sudah diproses.
+              </p>
+            </div>
+
+            <div class="management-actions">
+              <button type="button" class="button primary" data-go="excel">
+                OPEN EXCEL PROCESSOR <span>↗</span>
+              </button>
             </div>
           </article>
         </section>
