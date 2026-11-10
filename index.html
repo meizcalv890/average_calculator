@@ -3,719 +3,179 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f4f0e6" />
-    <title>NEO / Average Calculator v2.2</title>
+
+    <meta
+      name="description"
+      content="NEO AVG - Kalkulator rata-rata sederhana dan mudah digunakan."
+    />
+
+    <title>NEO AVG - Average Calculator</title>
+
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="app-shell">
-      <!-- MOBILE SIDEBAR OVERLAY -->
-      <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-      <!-- SIDEBAR -->
-      <aside class="sidebar" id="appSidebar">
-        <a href="#" class="brand" aria-label="Average Calculator">
-          <div class="brand-mark">N.</div>
-          <div class="brand-copy">
-            <strong>NEO / AVG</strong>
-            <span>CALCULATOR SYSTEM</span>
-          </div>
+    <div class="app">
+      <!-- HEADER -->
+      <header class="header">
+        <a href="#" class="logo">
+          <span class="logo-mark">N</span>
+          <span>NEO AVG</span>
         </a>
 
-        <div class="sidebar-section">
-          <span class="section-label">WORKSPACE / 01</span>
+        <span class="header-label">AVERAGE CALCULATOR</span>
+      </header>
 
-          <nav class="navigation">
-            <button class="nav-link active" data-page="dashboard">
-              <span class="nav-index">01</span>
-              <span>Overview</span>
-              <span class="nav-arrow">↗</span>
-            </button>
+      <!-- MAIN -->
+      <main class="main">
+        <section class="intro">
+          <p class="eyebrow">SIMPLE CALCULATION</p>
 
-            <button class="nav-link" data-page="calculator">
-              <span class="nav-index">02</span>
-              <span>Calculator</span>
-              <span class="nav-arrow">↗</span>
-            </button>
+          <h1>Calculate your<br />average.</h1>
 
-            <button class="nav-link" data-page="history">
-              <span class="nav-index">03</span>
-              <span>Records</span>
-              <span class="nav-arrow">↗</span>
-            </button>
-
-            <button class="nav-link" data-page="excel">
-              <span class="nav-index">04</span>
-              <span>Excel Processor</span>
-              <span class="nav-arrow">↗</span>
-            </button>
-          </nav>
-        </div>
-
-        <div class="sidebar-bottom">
-          <div class="sidebar-note">
-            <span class="status-mark"></span>
-            <div>
-              <strong>SYSTEM ONLINE</strong>
-              <small>Local browser storage</small>
-            </div>
-          </div>
-
-          <div class="sidebar-version">
-            <span>NEO / AVG</span>
-            <strong>V.2.2</strong>
-          </div>
-        </div>
-      </aside>
-
-      <!-- MAIN CONTENT -->
-      <main class="main-content">
-        <header class="topbar">
-          <button
-            type="button"
-            class="mobile-menu-toggle"
-            id="mobileMenuToggle"
-            aria-label="Buka menu navigasi"
-            aria-controls="appSidebar"
-            aria-expanded="false"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <div class="topbar-left">
-            <span class="topbar-kicker">PERSONAL DATA TOOL / 2026</span>
-            <h2 id="pageTitle">Overview<span class="title-period">.</span></h2>
-          </div>
-
-          <div class="topbar-right">
-            <span class="storage-indicator">
-              <span></span>
-              LOCAL STORAGE
-            </span>
-            <div class="topbar-version">2.2</div>
-          </div>
-        </header>
-
-        <!-- ================= DASHBOARD ================= -->
-        <section class="page active" id="dashboardPage">
-          <div class="page-intro">
-            <div>
-              <span class="section-label">DASHBOARD / 01</span>
-              <h3>Numbers tell<br />the <span>story.</span></h3>
-              <p>Ringkasan seluruh perhitungan nilai yang sudah kamu simpan.</p>
-            </div>
-
-            <button class="button primary" data-go="calculator">
-              <span>＋</span> NEW CALCULATION
-            </button>
-          </div>
-
-          <!-- MAIN STATISTIC -->
-          <div class="hero-stat">
-            <div class="hero-stat-main">
-              <div class="stat-heading">
-                <span>01 / OVERALL AVERAGE</span>
-                <span class="stat-symbol">↗</span>
-              </div>
-
-              <h3 id="overallAverage">0</h3>
-              <p>Rata-rata dari seluruh nilai dalam riwayat tersimpan.</p>
-            </div>
-
-            <div class="hero-stat-side">
-              <div class="side-stat">
-                <span>02 / SAVED RECORDS</span>
-                <strong id="historyRecordCount">0</strong>
-                <small>Total perhitungan tersimpan</small>
-              </div>
-
-              <div class="side-stat yellow-block">
-                <span>03 / TOTAL SCORES</span>
-                <strong id="totalScores">0</strong>
-                <small>Jumlah seluruh data nilai</small>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECONDARY STATS -->
-          <div class="secondary-stats">
-            <div class="mini-stat">
-              <span class="mini-index">04</span>
-              <div>
-                <small>HIGHEST SCORE</small>
-                <strong id="highestScore">-</strong>
-              </div>
-              <span class="mini-icon">↑</span>
-            </div>
-
-            <div class="mini-stat">
-              <span class="mini-index">05</span>
-              <div>
-                <small>LOWEST SCORE</small>
-                <strong id="lowestScoreText">-</strong>
-              </div>
-              <span class="mini-icon">↓</span>
-            </div>
-          </div>
-
-          <!-- CHARTS -->
-          <div class="section-heading">
-            <div>
-              <span class="section-label">DATA VISUALIZATION / 02</span>
-              <h3>Performance analysis<span>.</span></h3>
-            </div>
-            <span class="section-number">FIG. 01—02</span>
-          </div>
-
-          <div class="dashboard-grid">
-            <article class="panel chart-panel">
-              <div class="panel-heading">
-                <div>
-                  <span class="panel-index">FIG. 01</span>
-                  <h3>Average comparison</h3>
-                  <p>Perbandingan rata-rata setiap riwayat.</p>
-                </div>
-                <span class="panel-symbol">▥</span>
-              </div>
-
-              <div id="averageChart" class="chart-area">
-                <div class="empty-state">Belum ada data untuk ditampilkan.</div>
-              </div>
-            </article>
-
-            <article class="panel distribution-panel">
-              <div class="panel-heading">
-                <div>
-                  <span class="panel-index">FIG. 02</span>
-                  <h3>Score distribution</h3>
-                  <p>Distribusi nilai berdasarkan rentang.</p>
-                </div>
-                <span class="panel-symbol">◫</span>
-              </div>
-
-              <div id="distributionChart" class="distribution-list">
-                <div class="empty-state">Belum ada data.</div>
-              </div>
-            </article>
-          </div>
-
-          <!-- RECENT RECORDS -->
-          <div class="section-heading recent-heading">
-            <div>
-              <span class="section-label">DATABASE / 03</span>
-              <h3>Recent records<span>.</span></h3>
-            </div>
-
-            <button class="text-button" data-go="history">
-              VIEW ALL RECORDS →
-            </button>
-          </div>
-
-          <article class="panel recent-panel">
-            <div id="recentHistories" class="recent-list">
-              <div class="empty-state">Belum ada riwayat tersimpan.</div>
-            </div>
-          </article>
-
-          <!-- EXCEL PROCESSOR SHORTCUT -->
-          <div class="section-heading excel-shortcut-heading">
-            <div>
-              <span class="section-label">DATA PROCESSOR / 04</span>
-              <h3>Excel Processor<span>.</span></h3>
-            </div>
-            <span class="section-number">WORKBOOK TOOLS</span>
-          </div>
-
-          <article class="panel management-panel excel-shortcut-panel">
-            <div class="management-description">
-              <span class="panel-index">SPREADSHEET / PROCESSING</span>
-              <h3>Work with your Excel data.</h3>
-              <p>
-                Impor spreadsheet, hitung rata-rata baris dan kolom, periksa
-                hasilnya, lalu unduh kembali file yang sudah diproses.
-              </p>
-            </div>
-
-            <div class="management-actions">
-              <button type="button" class="button primary" data-go="excel">
-                OPEN EXCEL PROCESSOR <span>↗</span>
-              </button>
-            </div>
-          </article>
+          <p class="intro-description">
+            Masukkan beberapa angka untuk mendapatkan nilai rata-ratanya dengan
+            mudah.
+          </p>
         </section>
 
-        <!-- ================= CALCULATOR ================= -->
-        <section class="page" id="calculatorPage">
-          <div class="page-intro compact-intro">
-            <div>
-              <span class="section-label">CALCULATOR / 02</span>
-              <h3>Calculate<br />your <span>numbers.</span></h3>
-              <p>
-                Masukkan nilai dan dapatkan hasil perhitungan secara langsung.
-              </p>
-            </div>
-
-            <span id="draftStatus" class="draft-indicator">
-              <span></span> AUTO DRAFT
-            </span>
-          </div>
-
-          <div class="calculator-layout">
-            <article class="panel calculator-panel">
-              <div class="field-group">
-                <label for="historyName">
-                  <span>01</span> CALCULATION NAME
-                </label>
-                <input
-                  type="text"
-                  id="historyName"
-                  placeholder="Contoh: Matematika semester 1"
-                />
-              </div>
-
-              <div class="form-divider">
-                <span>INPUT DATA</span>
-                <span>02 / SCORE ENTRY</span>
-              </div>
-
-              <div class="panel-heading">
-                <div>
-                  <h3>Score list</h3>
-                  <p>Masukkan nilai antara 0 sampai 100.</p>
-                </div>
-
-                <span class="count-badge">
-                  <span id="scoreCount">0</span> ENTRIES
-                </span>
-              </div>
-
-              <div class="score-entry">
-                <input
-                  type="number"
-                  id="scoreInput"
-                  min="0"
-                  max="100"
-                  step="any"
-                  placeholder="00.00"
-                />
-
-                <button class="button primary" id="addScoreBtn">
-                  ADD VALUE <span>＋</span>
-                </button>
-              </div>
-
-              <p id="inputMessage" class="message"></p>
-
-              <div id="scoreList" class="score-list">
-                <div class="empty-state">
-                  Belum ada nilai. Tambahkan nilai pertama.
-                </div>
-              </div>
-
-              <div class="calculator-actions">
-                <button class="button secondary" id="clearScoresBtn">
-                  CLEAR VALUES
-                </button>
-
-                <button class="button secondary" id="newCalculationBtn">
-                  NEW SESSION ↗
-                </button>
-              </div>
-            </article>
-
-            <aside class="result-panel">
-              <div class="result-top">
-                <span>LIVE CALCULATION / 03</span>
-                <span class="result-mark">AVG.</span>
-              </div>
-
-              <p class="result-label">YOUR AVERAGE</p>
-              <div class="average-display" id="averageResult">0</div>
-              <p class="result-caption" id="resultCaption">
-                Tambahkan nilai untuk memulai.
-              </p>
-
-              <div class="result-divider"></div>
-
-              <div class="result-row">
-                <span>NUMBER OF SCORES</span>
-                <strong id="resultCount">0</strong>
-              </div>
-
-              <div class="result-row">
-                <span>TOTAL VALUE</span>
-                <strong id="resultTotal">0</strong>
-              </div>
-
-              <div class="result-row">
-                <span>HIGHEST</span>
-                <strong id="resultHighest">-</strong>
-              </div>
-
-              <div class="result-row">
-                <span>LOWEST</span>
-                <strong id="resultLowest">-</strong>
-              </div>
-
-              <button class="button result-button" id="saveCalculationBtn">
-                SAVE CALCULATION <span>↗</span>
-              </button>
-
-              <p id="saveStatus" class="message center"></p>
-            </aside>
-          </div>
-        </section>
-
-        <!-- ================= HISTORY ================= -->
-        <section class="page" id="historyPage">
-          <div class="page-intro compact-intro">
-            <div>
-              <span class="section-label">DATABASE / 03</span>
-              <h3>Stored <span>records.</span></h3>
-              <p>Semua perhitungan yang pernah kamu simpan.</p>
-            </div>
-
-            <div class="record-count-box">
-              <span>RECORD ARCHIVE</span>
-              <strong id="totalHistories">0</strong>
-            </div>
-          </div>
-
-          <article class="panel history-panel">
-            <div class="history-toolbar">
-              <div class="search-wrapper">
-                <span>⌕</span>
-                <input
-                  type="search"
-                  id="searchHistory"
-                  placeholder="Search records..."
-                />
-              </div>
-
-              <select id="sortHistory">
-                <option value="newest">LATEST FIRST</option>
-                <option value="oldest">OLDEST FIRST</option>
-                <option value="name">NAME A-Z</option>
-                <option value="average-high">AVERAGE: HIGH TO LOW</option>
-                <option value="average-low">AVERAGE: LOW TO HIGH</option>
-              </select>
-            </div>
-
-            <div class="table-heading">
-              <span>RECORD NAME</span>
-              <span>AVERAGE / ACTIONS</span>
-            </div>
-
-            <div id="historyList" class="history-list">
-              <div class="empty-state">Belum ada riwayat tersimpan.</div>
-            </div>
-          </article>
-
-          <!-- DATA MANAGEMENT -->
+        <!-- CALCULATOR -->
+        <section class="calculator">
           <div class="section-heading">
             <div>
-              <span class="section-label">SYSTEM TOOLS / 04</span>
-              <h3>Data management<span>.</span></h3>
+              <h2>Calculator</h2>
+              <p>Masukkan angka yang ingin dihitung.</p>
             </div>
+
+            <span class="input-counter" id="inputCounter"> 1 INPUT </span>
           </div>
 
-          <article class="panel management-panel">
-            <div class="management-description">
-              <span class="panel-index">BACKUP / RESTORE</span>
-              <h3>Keep your data safe.</h3>
-              <p>
-                Ekspor atau pulihkan data perhitungan menggunakan file lokal.
-              </p>
-            </div>
-
-            <div class="management-actions">
-              <button class="button secondary" id="exportCsvBtn">
-                ↓ EXPORT CSV
-              </button>
-
-              <button class="button secondary" id="backupBtn">
-                + BACKUP JSON
-              </button>
-
-              <button class="button secondary" id="restoreBtn">
-                ↑ RESTORE JSON
-              </button>
+          <!-- INPUT LIST -->
+          <div class="input-list" id="inputList">
+            <div class="number-row">
+              <span class="number-index">01</span>
 
               <input
-                type="file"
-                id="restoreInput"
-                accept=".json,application/json"
-                hidden
+                type="text"
+                class="number-input"
+                inputmode="decimal"
+                placeholder="Masukkan angka"
+                aria-label="Angka 1"
+                autocomplete="off"
               />
-            </div>
 
-            <p id="managementStatus" class="message"></p>
-          </article>
-
-          <!-- HISTORY DETAIL -->
-          <article class="panel detail-panel" id="historyDetail" hidden>
-            <div class="panel-heading">
-              <div>
-                <span class="panel-index">RECORD DETAIL</span>
-                <h3 id="detailTitle">Detail perhitungan</h3>
-                <p id="detailDate"></p>
-              </div>
-
-              <button class="button secondary" id="closeDetailBtn">
-                CLOSE ×
-              </button>
-            </div>
-
-            <div class="detail-stats" id="detailStats"></div>
-            <div id="detailScores" class="detail-scores"></div>
-          </article>
-        </section>
-
-        <!-- ================= EXCEL PROCESSOR ================= -->
-        <section class="page" id="excelPage">
-          <div class="page-intro compact-intro">
-            <div>
-              <span class="section-label">DATA PROCESSOR / 04</span>
-              <h3>Excel data.<br />Processed <span>better.</span></h3>
-              <p>
-                Import spreadsheet, hitung rata-rata, dan ekspor kembali
-                hasilnya ke file Excel.
-              </p>
-            </div>
-
-            <span class="draft-indicator">
-              <span></span> LOCAL PROCESSING
-            </span>
-          </div>
-
-          <!-- FILE UPLOAD -->
-          <article class="panel excel-upload-panel">
-            <div class="panel-heading">
-              <div>
-                <span class="panel-index">01 / IMPORT WORKBOOK</span>
-                <h3>Choose your spreadsheet</h3>
-                <p>Format yang didukung: XLSX dan XLS.</p>
-              </div>
-              <span class="panel-symbol">▤</span>
-            </div>
-
-            <label class="excel-dropzone" for="excelFileInput">
-              <span class="excel-upload-icon">↑</span>
-              <strong>SELECT EXCEL FILE</strong>
-              <span>Choose a file from your device</span>
-              <small>Supported formats: .xlsx, .xls</small>
-            </label>
-
-            <input
-              type="file"
-              id="excelFileInput"
-              accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-              hidden
-            />
-
-            <div id="excelFileInfo" class="excel-file-info" hidden>
-              <div>
-                <strong id="excelFileName">No file selected</strong>
-                <small id="excelFileSize"></small>
-              </div>
               <button
                 type="button"
-                class="button secondary"
-                id="removeExcelBtn"
+                class="remove-button"
+                aria-label="Hapus input"
+                disabled
               >
-                REMOVE ×
+                &times;
+              </button>
+            </div>
+          </div>
+
+          <!-- ADD INPUT -->
+          <button type="button" class="add-button" id="addButton">
+            <span>+</span>
+            Tambah angka
+          </button>
+
+          <!-- ACTIONS -->
+          <div class="calculator-actions">
+            <button type="button" class="calculate-button" id="calculateButton">
+              Hitung rata-rata
+              <span>&rarr;</span>
+            </button>
+
+            <button type="button" class="reset-button" id="resetButton">
+              Reset
+            </button>
+          </div>
+
+          <!-- ERROR MESSAGE -->
+          <p
+            class="error-message"
+            id="errorMessage"
+            role="alert"
+            aria-live="polite"
+          ></p>
+
+          <!-- RESULT -->
+          <section
+            class="result-section"
+            id="resultSection"
+            aria-live="polite"
+            hidden
+          >
+            <div class="result-top">
+              <span>CALCULATION RESULT</span>
+              <span class="result-status">COMPLETED</span>
+            </div>
+
+            <div class="result-main">
+              <p>Average value</p>
+
+              <h2 id="averageResult">0</h2>
+
+              <button type="button" class="copy-button" id="copyButton">
+                <span id="copyButtonText">Copy result</span>
+                <span>&#8599;</span>
               </button>
             </div>
 
-            <p id="excelImportStatus" class="message" aria-live="polite"></p>
-          </article>
+            <div class="result-details">
+              <div class="detail-item">
+                <span>Total numbers</span>
+                <strong id="totalCount">0</strong>
+              </div>
 
-          <!-- WORKBOOK CONFIGURATION -->
-          <article class="panel excel-settings-panel">
-            <div class="panel-heading">
-              <div>
-                <span class="panel-index">02 / WORKBOOK SETTINGS</span>
-                <h3>Configure your data</h3>
-                <p>
-                  Tentukan worksheet dan struktur tabel yang ingin diproses.
-                </p>
+              <div class="detail-item">
+                <span>Sum</span>
+                <strong id="totalSum">0</strong>
               </div>
             </div>
 
-            <div class="excel-settings-grid">
-              <div class="field-group">
-                <label for="excelSheetSelect">
-                  <span>01</span> WORKSHEET
-                </label>
-                <select id="excelSheetSelect" disabled>
-                  <option value="">Import a file first</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="excelHeaderRow"> <span>02</span> HEADER ROW </label>
-                <input
-                  type="number"
-                  id="excelHeaderRow"
-                  min="1"
-                  value="1"
-                  disabled
-                />
-              </div>
-
-              <div class="field-group">
-                <label for="excelStartRow">
-                  <span>03</span> FIRST DATA ROW
-                </label>
-                <input
-                  type="number"
-                  id="excelStartRow"
-                  min="1"
-                  value="2"
-                  disabled
-                />
-              </div>
+            <div class="formula">
+              <span>FORMULA</span>
+              <p id="formulaText">Total angka &divide; Jumlah angka</p>
             </div>
-
-            <div class="form-divider">
-              <span>CALCULATION MODE</span>
-              <span>03 / PROCESSING</span>
-            </div>
-
-            <div class="excel-mode-grid">
-              <label class="excel-mode-option">
-                <input type="checkbox" id="excelRowMode" checked disabled />
-                <span>
-                  <strong>ROW AVERAGE</strong>
-                  <small>Hitung rata-rata setiap baris data.</small>
-                </span>
-              </label>
-
-              <label class="excel-mode-option">
-                <input type="checkbox" id="excelColumnMode" checked disabled />
-                <span>
-                  <strong>COLUMN AVERAGE</strong>
-                  <small>Hitung rata-rata setiap kolom nilai.</small>
-                </span>
-              </label>
-            </div>
-
-            <div class="field-group excel-column-field">
-              <label for="excelNumericColumns">
-                <span>04</span> NUMERIC COLUMNS
-              </label>
-              <select id="excelNumericColumns" multiple disabled></select>
-              <small class="field-hint">
-                Pilih satu atau beberapa kolom angka yang ingin dihitung.
-                Gunakan Ctrl atau Shift untuk memilih beberapa kolom.
-              </small>
-            </div>
-
-            <button
-              type="button"
-              class="button primary excel-process-button"
-              id="processExcelBtn"
-              disabled
-            >
-              PROCESS SPREADSHEET <span>↗</span>
-            </button>
-
-            <p id="excelProcessStatus" class="message" aria-live="polite"></p>
-          </article>
-
-          <!-- PREVIEW -->
-          <article class="panel excel-preview-panel">
-            <div class="panel-heading">
-              <div>
-                <span class="panel-index">04 / DATA PREVIEW</span>
-                <h3>Spreadsheet preview</h3>
-                <p>Periksa data sebelum mengekspor hasilnya.</p>
-              </div>
-              <span id="excelPreviewCount" class="count-badge"> 0 ROWS </span>
-            </div>
-
-            <div class="excel-table-wrapper">
-              <table class="excel-preview-table">
-                <thead id="excelPreviewHead">
-                  <tr>
-                    <th>IMPORT DATA TO BEGIN</th>
-                  </tr>
-                </thead>
-                <tbody id="excelPreviewBody">
-                  <tr>
-                    <td class="empty-state">
-                      Belum ada spreadsheet yang diimpor.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-
-          <!-- SUMMARY AND EXPORT -->
-          <article class="panel excel-result-panel">
-            <div class="panel-heading">
-              <div>
-                <span class="panel-index">05 / PROCESSING RESULT</span>
-                <h3>Calculation summary</h3>
-                <p>Ringkasan hasil pengolahan spreadsheet.</p>
-              </div>
-              <span class="panel-symbol">AVG.</span>
-            </div>
-
-            <div class="excel-summary-grid">
-              <div class="excel-summary-item">
-                <small>PROCESSED ROWS</small>
-                <strong id="excelProcessedRows">0</strong>
-              </div>
-
-              <div class="excel-summary-item">
-                <small>VALID NUMBERS</small>
-                <strong id="excelValidNumbers">0</strong>
-              </div>
-
-              <div class="excel-summary-item">
-                <small>SKIPPED CELLS</small>
-                <strong id="excelSkippedCells">0</strong>
-              </div>
-            </div>
-
-            <div id="excelResultPreview" class="excel-result-preview">
-              <div class="empty-state">
-                Hasil perhitungan akan muncul di sini.
-              </div>
-            </div>
-
-            <button
-              type="button"
-              class="button primary excel-export-button"
-              id="exportExcelBtn"
-              disabled
-            >
-              DOWNLOAD PROCESSED EXCEL <span>↓</span>
-            </button>
-
-            <p id="excelExportStatus" class="message" aria-live="polite"></p>
-          </article>
+          </section>
         </section>
 
-        <footer class="footer">
-          <div>
-            <strong>NEO / AVG.</strong>
-            <span>PERSONAL CALCULATION TOOL</span>
+        <!-- HISTORY -->
+        <section class="history-section">
+          <div class="history-heading">
+            <div>
+              <h2>Recent calculations</h2>
+              <p>Riwayat perhitungan sebelumnya.</p>
+            </div>
+
+            <button
+              type="button"
+              class="clear-history-button"
+              id="clearHistoryButton"
+            >
+              Clear history
+            </button>
           </div>
-          <span>BUILT FOR NUMBERS. © 2026</span>
-        </footer>
+
+          <div class="history-list" id="historyList">
+            <div class="history-empty" id="historyEmpty">
+              <p>Belum ada riwayat perhitungan.</p>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <span>NEO AVG</span>
+
+        <p>A simple tool for calculating averages.</p>
+
+        <span class="footer-year"> &copy; <span id="currentYear"></span> </span>
+      </footer>
     </div>
-
-    <!-- SheetJS: Excel reader and writer -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-
-    <!-- Average Calculator v2.2 -->
-    <script src="excel-processor.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>
